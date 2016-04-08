@@ -39,7 +39,6 @@ Vagrant.configure("2") do |config|
     
     config.vm.network :private_network, ip: "192.168.33.99"
     config.ssh.forward_agent = true
-    config.vbguest.auto_update = false
 
     # If ansible is in your path it will provision from your HOST machine
     # If ansible is not found in the path it will be instaled in the VM and provisioned from there
