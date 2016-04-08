@@ -21,7 +21,10 @@ class PlaceType extends AbstractType
                 'choice_label' => 'name',
                 'attr' => [
                     'class' => 'form-control input-lg select2'
-                ]
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'label' => false
             ])
         ;
     }
