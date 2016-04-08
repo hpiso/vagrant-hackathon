@@ -1,6 +1,6 @@
 ## Installation
 
-##### Voici les étapes pour l'installation du projet athleteec avec Vagrant :
+##### Voici les étapes pour l'installation de la box vagrant (avec symfony3) :
 
 ```sh
 $ git clone https://github.com/hpiso/vagrant-hackathon.git
@@ -20,5 +20,5 @@ $ cd /vagrant/www
 $ composer install
 ```
 
-Vous pouvez désormais accéder au projet via http://athleteec.local/app_dev.php
+Vous pouvez désormais accéder au projet via http://hackathon.local/app_dev.php
 
