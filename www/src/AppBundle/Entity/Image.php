@@ -31,10 +31,28 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="$station", type="string", length=100)
+     * @ORM\Column(name="station", type="string", length=100)
      */
     private $station;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=100)
+     */
+    private $url;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="principal", type="boolean")
+     */
+    private $principal;
+
+    public function __construct()
+    {
+        $this->principal = false;
+    }
 
     /**
      * Get id
@@ -76,6 +94,38 @@ class Image
     public function setStation($station)
     {
         $this->station = $station;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPrincipal()
+    {
+        return $this->principal;
+    }
+
+    /**
+     * @param boolean $principal
+     */
+    public function setPrincipal($principal)
+    {
+        $this->principal = $principal;
     }
 
 }
