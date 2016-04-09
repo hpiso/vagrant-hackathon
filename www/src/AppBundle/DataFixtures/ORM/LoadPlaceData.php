@@ -15,10 +15,6 @@ class LoadPlaceData extends AbstractFixture implements FixtureInterface
         $place->setName('Tour Eiffel');
         $manager->persist($place);
 
-        $place2 = new Place();
-        $place2->setName('Musée du louvre');
-        $manager->persist($place2);
-
         $place3 = new Place();
         $place3->setName('Sacré Coeur');
         $manager->persist($place3);
