@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +29,10 @@ class Place
      */
     private $name;
 
-
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
     /**
      * Get id
      *
@@ -61,6 +65,20 @@ class Place
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add image
+     *
+     * @param Image $image
+     *
+     * @return Place
+     */
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
+
+        return $this;
     }
 }
 

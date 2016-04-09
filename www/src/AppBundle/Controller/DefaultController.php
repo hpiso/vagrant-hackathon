@@ -11,8 +11,9 @@ class DefaultController extends Controller
     /**
      * @Route("/")
      */
-    public function indexAction()
+    public function indexAction($id)
     {
+        $place = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Place')->find($id);
 
         $form = $this->createForm(PlaceType::class, null);
 
