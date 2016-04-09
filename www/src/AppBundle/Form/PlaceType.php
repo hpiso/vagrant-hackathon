@@ -20,7 +20,7 @@ class PlaceType extends AbstractType
                 'class' => 'AppBundle:Place',
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'form-control input-lg select2'
+                    'class' => 'form-control input-lg'
                 ],
                 'expanded' => false,
                 'multiple' => false,

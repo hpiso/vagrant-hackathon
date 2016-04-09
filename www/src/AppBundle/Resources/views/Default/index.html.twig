@@ -9,10 +9,11 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>Hackathon Ratp</h1>
+                        <h2>Where are you going ?</h2>
                         {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <input type="submit">
+
+                            {{ form_widget(form.place) }}
+
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -81,7 +82,7 @@
             }
 
             setTimeout(function(){
-                
+
                 var station = $('[data-step-index="1"]').find('[jstcache="63"]').text() + 'Métro, Paris';
 
                 $.ajax({
@@ -112,6 +113,14 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Wnp3sml8NtilduFMNmjqogvD6wHguWw&signed_in=true&callback=initMap"
             async defer></script>
+    
+    <script>
+        $(function(){
+            $('#place_place').on('change', function(){
+                $('form').submit();
+            })
+        })
+    </script>
 
 
 {% endblock %}

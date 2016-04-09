@@ -6,3 +6,11 @@
     padding-left: 0;
     padding-right: 0;
 }
+
+.intro-header .site-heading, .intro-header .page-heading {
+    text-align: left;
+}
+
+#place_place {
+    border-radius: 0
+}
