@@ -22,8 +22,6 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted()) {
             $place = $form->getData()['place'];
-
-            dump($place);die;
         }
 
         return $this->render('AppBundle:Default:index.html.twig', [

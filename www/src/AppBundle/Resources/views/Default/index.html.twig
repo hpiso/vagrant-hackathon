@@ -30,6 +30,8 @@
             </div>
         </div>
     </section>
+
+    <div id="right-panel" style="visibility: hidden"></div>
 {% endblock %}
 
 {% block javascript %}
@@ -44,75 +46,69 @@
         });
     </script>
 
-    <script>
+    {% if place %}
+        <script>
+            var functionBCompleted = false;
 
-        /* GET POSITION */
-        function getCoords(position) {
-
-            var lat  = position.coords.latitude;
-            var long = position.coords.longitude;
-
-        }
-
-        function errorMsg(error) {
-            msg = {
-                1: "Accès à la position non autorisé",
-                2: "Position non trouvée",
-                3: "Délai expiré"
-            };
-            myPosition.innerHTML = msg[error.code]
-            myPosition.className = "ko"
-        }
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(getCoords,
-                    errorMsg,
-                    {enableHighAccuracy:true, timeout:60*1000})
-        }
-
-    </script>
-
-
-    <script>
-        function initMap() {
-            var directionsDisplay = new google.maps.DirectionsRenderer;
-            var directionsService = new google.maps.DirectionsService;
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 7,
-                center: {lat: 48.8534100, lng: 2.3488000}
-            });
-            directionsDisplay.setMap(map);
-            directionsDisplay.setPanel(document.getElementById('right-panel'));
-
-            var control = document.getElementById('floating-panel');
-            control.style.display = 'block';
-            map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
-
-            var onChangeHandler = function() {
+            function initMap() {
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var directionsService = new google.maps.DirectionsService;
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 12,
+                    center: {lat: 48.8534100, lng: 2.3488000}
+                });
+                directionsDisplay.setMap(map);
+                directionsDisplay.setPanel(document.getElementById('right-panel'));
                 calculateAndDisplayRoute(directionsService, directionsDisplay);
-            };
-            document.getElementById('start').addEventListener('change', onChangeHandler);
-            document.getElementById('end').addEventListener('change', onChangeHandler);
-        }
+            }
 
-        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-            var start = document.getElementById('start').value;
-            var end = document.getElementById('end').value;
-            directionsService.route({
-                origin: start,
-                destination: end,
-                travelMode: google.maps.TravelMode['TRANSIT']
-            }, function(response, status) {
-                if (status === google.maps.DirectionsStatus.OK) {
-                    directionsDisplay.setDirections(response);
+            function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                var start = '39 Rue du Caire, 75002 Paris';
+                var end = "{{ place.name }}" + ', Paris';
 
-                    //console.log($('[data-step-index="1"]').find('[jstcache="63"]').text());
-                } else {
-                    window.alert('Directions request failed due to ' + status);
-                }
-            });
-        }
+                directionsService.route({
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode['TRANSIT']
+                }, function(response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
 
-    </script>
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+            }
+
+            setTimeout(function(){
+                
+                var station = $('[data-step-index="1"]').find('[jstcache="63"]').text() + 'Métro, Paris';
+
+                $.ajax({
+                    url: "{{ path('gallery') }}",
+                    type: 'POST',
+                    data: {'station': station},
+                    success: function(data) {
+                        console.log(data)
+                    }
+                });
+
+            }, 1500);
+
+        </script>
+    {% else %}
+        <script>
+            function initMap() {
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 12,
+                    center: {lat: 48.8534100, lng: 2.3488000}
+                });
+                directionsDisplay.setMap(map);
+            }
+        </script>
+
+    {% endif %}
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Wnp3sml8NtilduFMNmjqogvD6wHguWw&signed_in=true&callback=initMap"
             async defer></script>
