@@ -11,9 +11,7 @@
                     <div class="site-heading">
                         <h2>Where are you going ?</h2>
                         {{ form_start(form) }}
-
-                            {{ form_widget(form.place) }}
-
+                        {{ form_widget(form.place) }}
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -113,7 +111,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Wnp3sml8NtilduFMNmjqogvD6wHguWw&signed_in=true&callback=initMap"
             async defer></script>
-    
+
     <script>
         $(function(){
             $('#place_place').on('change', function(){
