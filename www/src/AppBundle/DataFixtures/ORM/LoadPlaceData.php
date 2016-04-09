@@ -3,10 +3,11 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Place;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadPlaceData implements FixtureInterface
+class LoadPlaceData extends AbstractFixture implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {

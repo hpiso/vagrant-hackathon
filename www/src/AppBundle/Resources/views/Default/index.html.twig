@@ -11,7 +11,7 @@
                     <div class="site-heading">
                         <h2>Where are you going ?</h2>
                         {{ form_start(form) }}
-                        {{ form_widget(form.place) }}
+                        {{ form_widget(form) }}
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -22,7 +22,9 @@
     <section id="result">
         <div class="container-fluid">
             <div class="col-lg-6">
-                <p>Results</p>
+                <div id="resul-gallery">
+
+                </div>
             </div>
             <div class="col-lg-6">
                 <div id="map" style="height: 500px"></div>
@@ -80,15 +82,15 @@
             }
 
             setTimeout(function(){
-
-                var station = $('[data-step-index="1"]').find('[jstcache="63"]').text() + 'Métro, Paris';
+                
+                var station = $('[data-step-index="1"]').find('[jstcache="63"]').text();
 
                 $.ajax({
                     url: "{{ path('gallery') }}",
                     type: 'POST',
                     data: {'station': station},
                     success: function(data) {
-                        console.log(data)
+                        $('#resul-gallery').html(data);
                     }
                 });
 

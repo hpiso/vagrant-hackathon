@@ -16,6 +16,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+
         $form = $this->createForm(PlaceType::class, null);
         $form->handleRequest($request);
         $place = null;
@@ -28,5 +29,21 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'place' => $place
         ]);
+    }
+
+    /**
+     * @Route("/gallery", name="gallery")
+     * @Method({"GET", "POST"})
+     */
+    public function galleryAction(Request $request)
+    {
+        $station = $request->request->get('station');
+
+        $images = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Image')->findBy([
+            'station' => $station,
+        ]);
+
+
+        return $this->render('AppBundle:Default:gallery.html.twig', ['images' => $images]);
     }
 }
