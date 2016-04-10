@@ -21,7 +21,7 @@
             {% if image.principal %}
             {% else %}
                 <div class="col-lg-4">
-                    <img src="{{ asset('assets/img/station/'~image.url) }}" alt="">
+                    <img src="{{ asset('assets/img/station/'~image.url) }}" alt="" class="img-thumbnail">
                 </div>
             {% endif %}
         {% endfor %}
