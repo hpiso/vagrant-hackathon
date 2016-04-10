@@ -22,7 +22,7 @@ class LoadImageData extends AbstractFixture implements FixtureInterface
         $image2 = new Image();
         $image2->setLabel('Tour Eiffel 2');
         $image2->setStation('Strasbourg Saint-Denis');
-        $image2->setUrl('strasbourg-2.png');
+        $image2->setUrl('strasbourg-2.jpg');
         $manager->persist($image2);
 
         $image3 = new Image();
@@ -31,11 +31,24 @@ class LoadImageData extends AbstractFixture implements FixtureInterface
         $image3->setUrl('strasbourg-3.jpg');
         $manager->persist($image3);
 
+        $image4 = new Image();
+        $image4->setLabel('Tour Eiffel 4');
+        $image4->setStation('Strasbourg Saint-Denis');
+        $image4->setUrl('strasbourg-4.jpg');
+        $manager->persist($image4);
+
+
+
+
+
+
+
+
 
         $image4 = new Image();
         $image4->setLabel('Sacré coeur 1');
         $image4->setStation('Réaumur - Sébastopol');
-        $image4->setUrl('reaumur-1.png');
+        $image4->setUrl('reaumur-1.jpg');
         $manager->persist($image4);
 
 
@@ -50,8 +63,14 @@ class LoadImageData extends AbstractFixture implements FixtureInterface
         $image6 = new Image();
         $image6->setLabel('Sacré coeur 3');
         $image6->setStation('Réaumur - Sébastopol');
-        $image6->setUrl('reaumur-3.png');
+        $image6->setUrl('reaumur-3.jpg');
         $manager->persist($image6);
+
+        $image7 = new Image();
+        $image7->setLabel('Sacré coeur 4');
+        $image7->setStation('Réaumur - Sébastopol');
+        $image7->setUrl('reaumur-4.jpg');
+        $manager->persist($image7);
 
         $manager->flush();
     }
