@@ -2,10 +2,7 @@
     margin-bottom: 0;
 }
 
-#result .col-lg-6{
-    padding-left: 0;
-    padding-right: 0;
-}
+
 
 .intro-header .site-heading, .intro-header .page-heading {
     text-align: left;
@@ -13,4 +10,9 @@
 
 #place_place {
     border-radius: 0
+}
+
+p {
+    line-height: 1.5;
+     margin: 0;
 }

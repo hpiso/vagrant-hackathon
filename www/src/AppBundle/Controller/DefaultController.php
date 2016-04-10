@@ -44,6 +44,9 @@ class DefaultController extends Controller
         ]);
 
 
-        return $this->render('AppBundle:Default:gallery.html.twig', ['images' => $images]);
+        return $this->render('AppBundle:Default:gallery.html.twig', [
+            'images'  => $images,
+            'station' => $station
+        ]);
     }
 }
