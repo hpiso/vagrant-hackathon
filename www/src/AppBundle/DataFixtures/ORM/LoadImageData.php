@@ -31,6 +31,28 @@ class LoadImageData extends AbstractFixture implements FixtureInterface
         $image3->setUrl('strasbourg-3.jpg');
         $manager->persist($image3);
 
+
+        $image4 = new Image();
+        $image4->setLabel('Sacré coeur 1');
+        $image4->setStation('Réaumur - Sébastopol');
+        $image4->setUrl('reaumur-1.png');
+        $manager->persist($image4);
+
+
+        $image5 = new Image();
+        $image5->setLabel('Sacré coeur 2');
+        $image5->setStation('Réaumur - Sébastopol');
+        $image5->setUrl('reaumur-2.jpg');
+        $image5->setPrincipal(true);
+        $manager->persist($image5);
+
+
+        $image6 = new Image();
+        $image6->setLabel('Sacré coeur 3');
+        $image6->setStation('Réaumur - Sébastopol');
+        $image6->setUrl('reaumur-3.png');
+        $manager->persist($image6);
+
         $manager->flush();
     }
 }
