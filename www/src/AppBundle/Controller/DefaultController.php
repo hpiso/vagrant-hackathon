@@ -44,7 +44,9 @@ class DefaultController extends Controller
     {
         $place = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Place')->find($placeId);
 
-        $form = $this->createForm(PlaceType::class, null);
+        $form = $this->createForm(PlaceType::class, null, [
+            'place' => $place
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
