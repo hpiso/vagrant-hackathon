@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Place;
 use AppBundle\Form\PlaceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,7 +23,11 @@ class DefaultController extends Controller
         $place = null;
 
         if ($form->isSubmitted()) {
+
             $place = $form->getData()['place'];
+
+            return $this->redirectToRoute('resultat', ['placeId' => $place->getId() ]);
+
         }
 
         return $this->render('AppBundle:Default:index.html.twig', [
@@ -30,6 +35,30 @@ class DefaultController extends Controller
             'place' => $place
         ]);
     }
+
+    /**
+     * @Route("/resultat/{placeId}", name="resultat")
+     * @Method({"GET", "POST"})
+     */
+    public function resultatAction(Request $request, $placeId)
+    {
+        $place = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Place')->find($placeId);
+
+        $form = $this->createForm(PlaceType::class, null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+
+            $place = $form->getData()['place'];
+            return $this->redirectToRoute('resultat', ['placeId' => $place->getId() ]);
+        }
+
+        return $this->render('AppBundle:Default:resultat.html.twig', [
+            'form' => $form->createView(),
+            'place' => $place
+        ]);
+    }
+
 
     /**
      * @Route("/gallery", name="gallery")

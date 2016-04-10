@@ -22,7 +22,7 @@ class LoadImageData extends AbstractFixture implements FixtureInterface
         $image2 = new Image();
         $image2->setLabel('Tour Eiffel 2');
         $image2->setStation('Strasbourg Saint-Denis');
-        $image2->setUrl('strasbourg-2.jpg');
+        $image2->setUrl('strasbourg-2.png');
         $manager->persist($image2);
 
         $image3 = new Image();
