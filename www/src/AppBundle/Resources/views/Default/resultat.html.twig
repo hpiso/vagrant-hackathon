@@ -1,0 +1,146 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    {#<header class="intro-header" style="background-image: url('http://thumbs.dreamstime.com/z/entr%C3%A9e-de-station-de-m%C3%A9tro-de-souterrain-de-metropolitain-paris-63850700.jpg');">#}
+        <header class="intro-header" style="background-image: url('{{ asset('assets/img/metropolitain.jpg') }}');">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h2>Where are you going ?</h2>
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="result">
+        <div class="container-fluid">
+            <div class="col-lg-6">
+                <div id="resul-gallery">
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2>Plan <a href="#" style="color: #5e5e5e;font-size: 14px;" data-toggle="modal" data-target="#myModal">See details</a></h2>
+                <div id="map" style="height: 520px"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">All details</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="right-panel"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+
+
+    <script rel="script">
+        /* SELECT 2 */
+        $(function(){
+            $('.select2').select2({
+                placeholder: 'Select your places'
+            });
+        });
+    </script>
+
+    {% if place %}
+        <script>
+            var functionBCompleted = false;
+
+            function initMap() {
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var directionsService = new google.maps.DirectionsService;
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 12,
+                    center: {lat: 48.8534100, lng: 2.3488000},
+                    styles: [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#b5cbe4"}]},{"featureType":"landscape","stylers":[{"color":"#efefef"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#83a5b0"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#bdcdd3"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#e3eed3"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]                });
+                directionsDisplay.setMap(map);
+                directionsDisplay.setPanel(document.getElementById('right-panel'));
+                calculateAndDisplayRoute(directionsService, directionsDisplay);
+            }
+
+            function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                var start = '39 Rue du Caire, 75002 Paris';
+                var end = "{{ place.name }}" + ', Paris';
+
+                directionsService.route({
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode['TRANSIT']
+                }, function(response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+            }
+
+            setTimeout(function(){
+                
+                var station = $('[data-step-index="1"]').find('[jstcache="63"]').text();
+
+                $.ajax({
+                    url: "{{ path('gallery') }}",
+                    type: 'POST',
+                    data: {'station': station},
+                    success: function(data) {
+                        $('#resul-gallery').html(data);
+                    }
+                });
+
+            }, 1500);
+
+        </script>
+    {% else %}
+        <script>
+            function initMap() {
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 12,
+                    center: {lat: 48.8534100, lng: 2.3488000}
+                });
+                directionsDisplay.setMap(map);
+            }
+        </script>
+
+    {% endif %}
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Wnp3sml8NtilduFMNmjqogvD6wHguWw&signed_in=true&callback=initMap"
+            async defer></script>
+
+    <script>
+        $(function(){
+            $('#place_place').on('change', function(){
+                $('form').submit();
+            })
+        })
+    </script>
+
+
+{% endblock %}
+
+
